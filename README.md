@@ -34,7 +34,7 @@ An advanced Python script (`scripts/franka_wave.py`) that demonstrates direct co
 ### Project 2.3: ROS 2 & Isaac Sim Bridge (OmniGraph)
 
 This project demonstrates the fundamental workflow for connecting Isaac Sim to the ROS 2 ecosystem using **OmniGraph**.
--   **[▶️ Watch the live data stream on YouTube](https://youtu.be/YOUR_VIDEO_ID_HERE)**
+-   **[▶️ Watch the live data stream on YouTube](https://youtu.be/2jHL1TsLq30)**
 ![Final OmniGraph](./media/omnigraph.png)
 
 ### Project 2.4: Standalone ROS 2 Publisher/Subscriber (C++)
