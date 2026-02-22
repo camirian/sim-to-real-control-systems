@@ -1,6 +1,6 @@
-# Phase 2: Core Competencies in ROS 2 & Isaac Sim [COMPLETED]
+# Sim-to-Real Control Systems: ROS 2 & NVIDIA Isaac Sim
 
-This repository documents the hands-on development portion of Phase 2, focusing on mastering core robotics competencies. It contains foundational projects demonstrating communication with ROS 2 and control within the NVIDIA Isaac Sim environment.
+Foundational ROS 2 and NVIDIA Isaac Sim competencies: OmniGraph bridge, joint state publishing, Python/C++ nodes, and sim-to-real control patterns.
 
 For definitions of key terms used in this project, please see my central **[AI & Robotics Glossary](https://github.com/camirian/robotics-ontology/blob/main/GLOSSARY.md)**.
 
