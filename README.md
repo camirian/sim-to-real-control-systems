@@ -4,6 +4,9 @@ Foundational ROS 2 and NVIDIA Isaac Sim competencies: OmniGraph bridge, joint st
 
 For definitions of key terms used in this project, please see my central **[AI & Robotics Glossary](https://github.com/camirian/robotics-ontology/blob/main/GLOSSARY.md)**.
 
+
+> 📖 **Read the [Engineering Build Log (BUILD_LOG.md)](./BUILD_LOG.md)** for a deep dive into the architecture, execution sequence, and first-principles reasoning behind this project.
+
 ---
 
 ## ✅ Skills Demonstrated
