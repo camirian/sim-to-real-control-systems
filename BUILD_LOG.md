@@ -1,24 +1,24 @@
 # Engineering Build Log: Sim-to-Real Control Systems
 
 ## 1. The Core Objective (The "Why")
-To establish a mathematically verified pipeline where control logic written for a digital twin functions identically on physical hardware. This eliminates the "reality gap" and allows for rapid, destructive testing of control policies in simulation before risking irreversible damage to physical assets. It validates polyglot proficiency (Python/C++) and the critical Isaac Sim-to-ROS 2 bridging.
+To establish a rigorously verified pipeline wherein control logic operates with exact parity on both NVIDIA Isaac Sim digital twins and physical robot hardware. The objective is to absolutely eliminate the "reality gap," guaranteeing that heuristic models trained in simulation immediately transfer to the edge with zero behavioral drift.
 
 ## 2. The Toolchain & Constraints
-* **Simulation Engine:** NVIDIA Isaac Sim
-* **Middleware:** ROS 2 (Humble) + NVIDIA OmniGraph
-* **Languages:** Python (Rapid Prototyping) & C++ (High-Performance Nodes)
-* **The Hard Constraint:** Maintaining exact clock synchronization between the Isaac Sim physics stepper and the ROS 2 network clock to prevent temporal aliasing in control signals (`use_sim_time = true`).
+*   **Simulation Engine:** NVIDIA Isaac Sim
+*   **Middleware Integration:** ROS 2 OmniGraph Bridge
+*   **Control Logic:** Python / C++ 
+*   **Hard Constraints:** Absolute clock synchronization between the deterministic PhysX engine and the asynchronous ROS 2 middleware (`use_sim_time = true`).
 
 ## 3. The Execution Sequence
-* **Step 1: ROS 2 Foundation:** Built standalone publisher/subscriber nodes in both Python (rapid prototyping) and C++ (high-performance deployment) using standard Colcon builds.
-* **Step 2: Isaac Sim Scripting:** Created an advanced standalone Python script (`franka_wave.py`) leveraging the Isaac Sim API to interact directly with the robot articulated joints.
-* **Step 3: The OmniGraph Bridge:** Constructed the visual OmniGraph Action Graph to map Isaac Sim's native physical states deterministically to standard ROS 2 `sensor_msgs/JointState` topics. 
-* **Step 4: The Reality Verification:** Executed a closed-loop control test by launching the dual-node ecosystem, proving the external logic seamlessly interfaces with the simulated hardware exactly as it would with physical actuators.
+1.  **Simulation Instantiation:** Configured NVIDIA Isaac Sim with accurate rigid-body asset properties.
+2.  **Data Graph Mapping:** Constructed Isaac Sim OmniGraph Action Graphs to deterministically map physical joint states to ROS 2 `sensor_msgs/JointState` topics.
+3.  **Control Architecture:** Engineered the ROS 2 node architecture (Python and C++) to publish velocity command messages to the simulated articulation matrices.
+4.  **Reality Verification:** Executed closed-loop verification protocols to ensure commanded states matched the simulated PhysX states with bounded latency.
 
-## 4. Architectural Decisions & Trade-offs
-* **Why use OmniGraph instead of writing custom ROS 2 bridges?** OmniGraph operates directly within the Omniverse execution loop. It reduces latency and provides a deterministic, visual MBSE-style mapping of how data flows from the PhysX engine into the ROS middleware.
-* **Why multi-language (Python & C++)?** Python is ideal for AI-layer rapid iteration and data visualization, while C++ is essential for deterministic, real-time control loops. Maintaining pure parity across both validates production-readiness.
+## 4. Architectural Decisions
+Constructing manual Python bridges rapidly introduces serialization overhead and latency spikes. We utilized **NVIDIA OmniGraph** as the direct action translation layer. OmniGraph operates closer to the core C++ physics engine, radically reducing latency and explicitly coupling the PhysX step time with the ROS 2 transform broadcasts. This ensures visual and physical telemetry remains synchronous.
 
-## 5. The Wavefront (Next Steps)
-* **Project Alpha:** Implement a Reinforcement Learning (RL) policy trained in Isaac Sim and deploy the resulting ONNX model directly to the ROS 2 control node.
-* **Project Beta:** Introduce domain randomization (varying friction, mass, and sensor noise) in Isaac Sim to force the control system to become highly robust before physical deployment.
+## 5. The Wavefront
+*   **Phase 1:** Integrate deep Reinforcement Learning (RL) ONNX models directly into the ROS 2 node architecture for edge inference.
+*   **Phase 2:** Introduce programmatic Isaac Sim Domain Randomization (varying mass, friction, lighting) to force control policies to generalize against chaos.
+*   **Phase 3 (L5 Trajectory):** Implement continuous real-world telemetry ingestion directly back into the OmniGraph digital twin, creating an aggressively updating Bayesian loop that refines the simulated physics engine in real-time.
